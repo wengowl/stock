@@ -17,18 +17,34 @@ print report2016.columns
 
 for i in all_stock_code:
     # print "^^^",i
+    try:
+        roecomp(i)
+        profitcomp(i)
+    except Exception,e:
+        #print str(e)
+        continue 
+    
+def roecomp(i):
+    if report2014.ix[report2014.code==i,:1].empty==False:
+        if report2015.ix[report2015.code==i,:1].empty==False:
+            if report2016.ix[report2016.code==i,:1].empty==False:                
+                if report2014.ix[report2014.code==i,:1].roe <= report2015.ix[report2015.code==i,:1].roe:                    
+                    if report2015.ix[report2015.code==i ,:1].roe <= report2016.ix[report2016.code==i,:1].roe:
+                         print stock_basics.ix[i]
+
+def profitcomp(i):
     if report2014.ix[report2014.code==i,:1].empty==False:
         if report2015.ix[report2015.code==i,:1].empty==False:
             if report2016.ix[report2016.code==i,:1].empty==False:
-                try:
-                    print "2014   ",report2014.ix[report2014.code==i,:1].roe
-                    print "2015   ",report2015.ix[report2015.code==i,:1].roe 
-                    print "2016   ",report2016.ix[report2016.code==i,:1].roe
-                except Exception,e:
-                    #print str(e)
-                    continue 
-                if report2014.ix[report2014.code==i,:1].roe <= report2015.ix[report2015.code==i,:1].roe:
+                # try:
+                #     print report2014.ix[report2014.code==i,:1].net_profits
+                #     print report2015.ix[report2015.code==i,:1].net_profitsroe 
+                #     print report2016.ix[report2016.code==i,:1].net_profits
+                # except Exception,e:
+                #     #print str(e)
+                #     continue 
+                if report2014.ix[report2014.code==i,:1].net_profits <= report2015.ix[report2015.code==i,:1].net_profits:
                     
-                    if report2015.ix[report2015.code==i ,:1].roe <= report2016.ix[report2016.code==i,:1].roe:
+                    if report2015.ix[report2015.code==i ,:1].net_profits <= report2016.ix[report2016.code==i,:1].net_profits:
                          print stock_basics.ix[i]
     
