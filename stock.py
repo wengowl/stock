@@ -16,7 +16,7 @@ print report2015.columns
 print report2016.columns
 
 for i in all_stock_code:
-    # print "^^^",i
+    print "^^^ %s"%i
     try:
         roecomp(i)
         profitcomp(i)
